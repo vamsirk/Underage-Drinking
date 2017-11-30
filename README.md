@@ -8,6 +8,7 @@ Some Coding practices:
 4. Code reusability - Use functions for reusable code
 5. Assert whenever possible
 6. Comment where and all needed and document using jupyter notebook
+7. Please remove unnecessary code or comments(written for our verification) before uploading on Github.
 
 Grading:
 
