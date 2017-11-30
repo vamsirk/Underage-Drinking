@@ -1,18 +1,14 @@
-
-# coding: utf-8
-
-# In[16]:
-
-
 import pandas as pd
 from pandas import DataFrame as df
 import numpy as np
+
 data1 = pd.read_csv('student-mat.csv')
 data2 = pd.read_csv('student-por.csv')
 data = [data1,data2]
 data1.describe()
 data1.head()
 list(data1.columns)
+
 #check if need filling data
 data1.isnull()
 mod_data1 = data1
@@ -71,12 +67,9 @@ imp_var = mod_var.head(8)
 0     school                0.216776        0.216776
 '''
 
-
-# In[17]:
-
-
 with open('./output.txt', 'w') as f:
     f.write(_)
+
 #fit a linear regression model for Final grade
 lm2 = LinearRegression()
 X1 = mod_data1.drop('G1',axis =1)
@@ -100,16 +93,5 @@ imp_var2 = mod_var2.head(8)
 4     famsize               -0.678850        0.678850
 '''
 
-
-# In[18]:
-
-
 with open('./output2.txt', 'w') as f:
     f.write(_)
-
-
-# In[ ]:
-
-
-
-
