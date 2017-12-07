@@ -1,27 +1,33 @@
-#family relationships
+'''
+Alcohol Consumption vs Family Relationship
+
+Uses pandas to sort the data and matplotlib to visualize
+'''
+
 import random
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import pandas as pd
-import numpy as np
-
 
 data1 = pd.read_csv('student-mat.csv')    
 data2 = pd.read_csv('student-por.csv')
 datatotal = pd.concat([data1, data2], ignore_index=True)
 
-dataRelvlw = []
+#Weekly Alcohol Consumption List
+dataRelvlw = []  
 dataRellw = []
 dataRelmw = []
 dataRelhw = []
 dataRelvhw = []
 
+#Daily Alcohol Consumption List
 dataRelvld = []
 dataRelld = []
 dataRelmd = []
 dataRelhd = []
 dataRelvhd = []
 
+#sort the data
 for i,v in datatotal['famrel'].iteritems():
     if(v == 1):
         dataRelvlw.append(datatotal['Walc'][i])
@@ -38,16 +44,25 @@ for i,v in datatotal['famrel'].iteritems():
     if(v == 5):
         dataRelvhw.append(datatotal['Walc'][i])
         dataRelvhd.append(datatotal['Dalc'][i])
-datat = [dataRelvlw,dataRellw,dataRelmw,dataRelhw,dataRelvhw]
-p = plt.boxplot(datat)
+datat = [dataRelvhw,dataRelhw,dataRelmw,dataRellw,dataRelvlw]
+
+p = plt.boxplot(datat,patch_artist=True)
+#Visualization tweaks
+p['boxes'][0].set(facecolor='green')
+p['boxes'][1].set(facecolor='lightgreen')
+p['boxes'][2].set(facecolor='orange')
+p['boxes'][3].set(facecolor='orangered')
+p['boxes'][4].set(facecolor='red')
+for line in p['medians']:
+    line.set(color='blue')
+plt.xticks([1,2,3,4,5],['Very Good', 'Good', "Ok", "Bad", "Very Bad"])
 plt.xlabel('Family Relationship')
 plt.ylabel('Alcohol (weekend)')
 plt.show()
-print [len(datatotal['famrel']),len(dataRelvlw), len(dataRellw), len(dataRelmw), len(dataRelhw), len(dataRelvhw)]
-#this one is good because we can see that from 4 to 3 the median is the same but the median of the other quartile goes up a whole level. and then 3 to 2 the median goes up
+
 
 '''
-#not good
+#information displayed isnt as good
 datat = [dataRelvld,dataRelld,dataRelmd,dataRelhd,dataRelvhd]
 p = plt.boxplot(datat)
 plt.show()

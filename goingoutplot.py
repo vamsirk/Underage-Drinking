@@ -1,55 +1,32 @@
+'''
+Alcohol Consumption vs Going Out
+'''
+
 import matplotlib.pyplot as plt
 import pandas as pd
-import numpy as np
-
 
 data1 = pd.read_csv('student-mat.csv')    
 data2 = pd.read_csv('student-por.csv')
-datatotal = pd.concat([data1, data2], ignore_index=True)
 
-#DAILY ALCOHOL
-datavl = []
-datal= []
-datam = []
-datah = []
-datavh = []
-
-dataDalc = pd.concat([data1['Dalc'],data2['Dalc']], ignore_index=True)
-dataGOOUT = pd.concat([data1['goout'],data2['goout']], ignore_index=True)
-for i,v in dataDalc.iteritems():
-    if(v == 1):
-        datavl.append(dataGOOUT[i])
-    elif(v ==2):
-        datal.append(dataGOOUT[i])
-    elif(v ==3):
-        datam.append(dataGOOUT[i])
-    elif(v == 4):
-        datah.append(dataGOOUT[i])
-    elif(v == 5):
-        datavh.append(dataGOOUT[i])
-        
-datat = [datavl,datal,datam,datah,datavh]     
-p = plt.boxplot(datat)
-plt.xlabel('Degree of Alcohol Consumption (Weekday)')
-plt.ylabel('Degree of going out')
-plt.show()
-
-#WEEKEND ALCOHOL (Good)
+#Weekly Alcohol Lists
 dataGvl = []
 dataGl= []
 dataGm = []
 dataGh = []
 dataGvh = []
 
+#Daily Alcohol Lists
 dataGvld = []
 dataGld= []
 dataGmd = []
 dataGhd = []
 dataGvhd = []
 
+#extract the data
 dataWalc = pd.concat([data1['Walc'],data2['Walc']], ignore_index=True)
 dataDalc = pd.concat([data1['Dalc'],data2['Dalc']],ignore_index=True)
 dataGOOUT = pd.concat([data1['goout'],data2['goout']], ignore_index=True)
+#sort the data
 for i,v in dataGOOUT.iteritems():
     if(v == 1):
         dataGvl.append(dataWalc[i])
@@ -68,7 +45,17 @@ for i,v in dataGOOUT.iteritems():
         dataGvhd.append(dataDalc[i])
         
 datat = [dataGvl,dataGl,dataGm,dataGh,dataGvh]     
-p = plt.boxplot(datat)
+p = plt.boxplot(datat,patch_artist=True)
+
+#Visualization tweaks
+p['boxes'][0].set(facecolor='green')
+p['boxes'][1].set(facecolor='lightgreen')
+p['boxes'][2].set(facecolor='orange')
+p['boxes'][3].set(facecolor='orangered')
+p['boxes'][4].set(facecolor='red')
+for line in p['medians']:
+    line.set(color='blue')
 plt.ylabel('Degree of Alcohol Consumption (Weekdend)')
 plt.xlabel('Degree of going out')
+
 plt.show()
